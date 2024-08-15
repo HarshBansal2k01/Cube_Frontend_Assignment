@@ -8,7 +8,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, CardMedia } from "@mui/material";
 import { Customer, Photo } from "./Types";
 
 const CustomerDetails = ({ customer }: { customer: Customer }) => {
@@ -92,23 +92,31 @@ const CustomerDetails = ({ customer }: { customer: Customer }) => {
       >
         {displayImages().map((photo) => (
           <ImageListItem key={photo.id}>
-            <img
-              srcSet={`${photo.urls.small}?w=200&fit=crop&auto=format&dpr=2 2x`}
-              src={`${photo.urls.small}?w=200&fit=crop&auto=format`}
-              alt={photo.description || "No description"}
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
-            />
-            <ImageListItemBar
-              title={photo.description || "No title"}
-              actionIcon={
-                <IconButton
-                  sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                  aria-label={`info about ${photo.description}`}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
+            <Card
+              sx={{
+                maxWidth: 345,
+                boxShadow:
+                  "0px 4px 6px rgba(0,0,0,0.1), 0px 1px 3px rgba(0,0,0,0.08)",
+                transition: "transform 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow:
+                    "0px 6px 10px rgba(0,0,0,0.15), 0px 2px 4px rgba(0,0,0,0.1)",
+                },
+              }}
+            >
+              <CardMedia
+                component="img"
+                image={`${photo.urls.small}?w=200&fit=crop&auto=format`}
+                alt={photo.description || "No description"}
+                sx={{ height: 130, objectFit: "cover" }}
+              />
+              <CardContent>
+                <Typography variant="subtitle1" component="div">
+                  {photo.description || "No title"}
+                </Typography>
+              </CardContent>
+            </Card>
           </ImageListItem>
         ))}
       </ImageList>
