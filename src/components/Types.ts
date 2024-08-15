@@ -14,8 +14,7 @@ type Photo = {
     regular: string;
     small: string;
   };
-  description?: string; // Use '?' if description can be optional
-  // Add other properties if needed
+  description?: string; 
 };
 
 export type { Photo, Customer };
