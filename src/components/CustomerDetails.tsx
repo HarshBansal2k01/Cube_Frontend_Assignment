@@ -9,9 +9,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
+import { Customer, Photo } from "./Types";
 
-const CustomerDetails = ({ customer }: { customer: any }) => {
-  const [photos, setPhotos] = useState<any[]>([]);
+const CustomerDetails = ({ customer }: { customer: Customer }) => {
+  const [photos, setPhotos] = useState<Photo[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [page, setPage] = useState(1);
   const photosPerPage = 9;
@@ -25,6 +26,7 @@ const CustomerDetails = ({ customer }: { customer: any }) => {
         `https://api.unsplash.com/search/photos?page=${pageNum}&query=office&client_id=${UNSPLASH_ACCESS_ID}`
       );
       setPhotos(response.data.results.slice(0, photosPerPage));
+      console.log(response.data.results.slice(0, photosPerPage));
     } catch (error) {
       console.error("Error fetching photos", error);
     }

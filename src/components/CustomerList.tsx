@@ -34,7 +34,9 @@ const CustomerList = ({ customers, onSelect }: CustomerListProps) => {
         >
           <Card
             sx={{
-              marginBottom: 1,
+              marginTop: 1,
+              width: "100%",
+              borderRadius: 0,
               background:
                 selectedCustomerId === customer.id ? "lightgray" : "white",
               borderRight:
