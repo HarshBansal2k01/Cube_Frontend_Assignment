@@ -75,7 +75,6 @@ Open your browser and navigate to `http://localhost:5173` to view the applicatio
 
 - `src/`: Contains the main source code for the project.
   - `components/`: Reusable React components.
-  - `utils/`: Utility functions.
 - `public/`: Static assets like images and fonts.
 - `README.md`: Project documentation.
 
