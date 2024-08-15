@@ -43,6 +43,8 @@ This project is a single-page application developed in React and TypeScript, des
 
 ## Installation
 
+- **NOTE** : I have provided the env file so that it can use the client_id to access the API
+
 1. Clone the repository:
 
    ```bash
