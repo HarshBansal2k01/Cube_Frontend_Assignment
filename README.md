@@ -5,7 +5,7 @@
 
 This repository contains the frontend assignment project for Cube, developed using React, TypeScript, and Vite. The project is styled with Tailwind CSS and Material UI, and it implements a customer details portal with a dynamic photo grid fetched from the Unsplash API.
 
-**Live Demo:** [Cube Frontend Assignment](https://cube-frontend-assignment-eosin.vercel.app/)
+**Live Demo (Deployment):** [Cube Frontend Assignment](https://cube-frontend-assignment-eosin.vercel.app/)
 
 ## Table of Contents
 
