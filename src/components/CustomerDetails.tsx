@@ -17,10 +17,12 @@ const CustomerDetails = ({ customer }: { customer: any }) => {
   const photosPerPage = 9;
   const maxPages = 1000;
 
+  const UNSPLASH_ACCESS_ID = import.meta.env.VITE_UNSPLASH_API_KEY;
+
   const fetchPhotos = async (pageNum: number) => {
     try {
       const response = await axios.get(
-        `https://api.unsplash.com/search/photos?page=${pageNum}&query=office&client_id=DiW-dX-Rbscxv1Lg6CkA4kt5dxfLXvM59qnYgS20WW4`
+        `https://api.unsplash.com/search/photos?page=${pageNum}&query=office&client_id=${UNSPLASH_ACCESS_ID}`
       );
       setPhotos(response.data.results.slice(0, photosPerPage));
     } catch (error) {
@@ -92,7 +94,7 @@ const CustomerDetails = ({ customer }: { customer: any }) => {
               srcSet={`${photo.urls.small}?w=200&fit=crop&auto=format&dpr=2 2x`}
               src={`${photo.urls.small}?w=200&fit=crop&auto=format`}
               alt={photo.description || "No description"}
-              style={{ objectFit: "cover", width: "100%", height: "100%" }} 
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
             />
             <ImageListItemBar
               title={photo.description || "No title"}
