@@ -16,7 +16,6 @@ This repository contains the frontend assignment project for Cube, developed usi
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Assignment Instructions](#assignment-instructions)
-- [Contributing](#contributing)
 
 ## Overview
 
@@ -70,14 +69,12 @@ To start the development server, run:
 npm run dev
 ```
 
-Open your browser and navigate to `http://localhost:3000` to view the application.
+Open your browser and navigate to `http://localhost:5173` to view the application.
 
 ## Project Structure
 
 - `src/`: Contains the main source code for the project.
   - `components/`: Reusable React components.
-  - `pages/`: Application pages.
-  - `styles/`: Global and component-specific styles.
   - `utils/`: Utility functions.
 - `public/`: Static assets like images and fonts.
 - `README.md`: Project documentation.
@@ -94,13 +91,6 @@ Develop a single-page application in React and TypeScript which shows a customer
 4. Customer details include the customer name, title, address, and a 3x3 grid of 9 photos.
 5. The selected card on the left is highlighted.
 6. All pictures in the photo grid should change every 10 seconds. Fetch the photos from a public API.
-
-**Sample Design:**  
-The layout and state management should be implemented using React, HTML, CSS, and TypeScript best practices. Ensure that component re-rendering and hooks follow all best practices and optimizations.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
 ---
 
