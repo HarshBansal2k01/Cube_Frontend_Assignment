@@ -1,0 +1,14 @@
+/* Hide vertical scrollbar */
+.scroll-hidden {
+    overflow: hidden;
+  }
+  
+  .scroll-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* For Firefox */
+  .scroll-hidden {
+    scrollbar-width: none;
+  }
+  
