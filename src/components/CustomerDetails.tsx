@@ -2,25 +2,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
-import InfoIcon from "@mui/icons-material/Info";
+import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box, CardMedia } from "@mui/material";
 import { Customer, Photo } from "./Types";
-
 const CustomerDetails = ({ customer }: { customer: Customer }) => {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const photosPerPage = 9;
   const maxPages = 1000;
 
   const UNSPLASH_ACCESS_ID = import.meta.env.VITE_UNSPLASH_API_KEY;
 
   const fetchPhotos = async (pageNum: number) => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://api.unsplash.com/search/photos?page=${pageNum}&query=office&client_id=${UNSPLASH_ACCESS_ID}`
@@ -29,6 +28,8 @@ const CustomerDetails = ({ customer }: { customer: Customer }) => {
       console.log(response.data.results.slice(0, photosPerPage));
     } catch (error) {
       console.error("Error fetching photos", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,6 +52,11 @@ const CustomerDetails = ({ customer }: { customer: Customer }) => {
     return () => clearInterval(intervalId);
   }, [page, photos.length]);
 
+  useEffect(() => {
+    setPage(1);
+    fetchPhotos(1);
+  }, [customer]);
+
   const displayImages = () => {
     const endIndex = (currentIndex + photosPerPage) % photos.length;
 
@@ -66,9 +72,9 @@ const CustomerDetails = ({ customer }: { customer: Customer }) => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      sx={{ height: "100vh", padding: 4 }}
+      className="h-full p-2"
     >
-      <Card sx={{ width: 400, marginBottom: 4 }}>
+      <Card sx={{ width: 400, marginBottom: 2 }}>
         <CardContent sx={{ textAlign: "center" }}>
           <Typography gutterBottom variant="h5" component="div">
             {customer.name}
@@ -84,42 +90,48 @@ const CustomerDetails = ({ customer }: { customer: Customer }) => {
         </CardContent>
       </Card>
 
-      <ImageList
-        sx={{ width: "100%", height: 600 }}
-        cols={3}
-        rowHeight={130}
-        gap={10}
-      >
-        {displayImages().map((photo) => (
-          <ImageListItem key={photo.id}>
-            <Card
-              sx={{
-                maxWidth: 345,
-                boxShadow:
-                  "0px 4px 6px rgba(0,0,0,0.1), 0px 1px 3px rgba(0,0,0,0.08)",
-                transition: "transform 0.2s ease-in-out",
-                "&:hover": {
-                  transform: "scale(1.05)",
+      {loading ? (
+        <Box className="flex items-center justify-center h-full">
+          <CircularProgressWithLabel className="align-middle" value={100} />
+        </Box>
+      ) : (
+        <ImageList
+          sx={{ width: "100%", height: 600 }}
+          cols={3}
+          rowHeight={130}
+          gap={10}
+        >
+          {displayImages().map((photo) => (
+            <ImageListItem key={photo.id} className="p-2 -mt-4">
+              <Card
+                sx={{
+                  maxWidth: 345,
                   boxShadow:
-                    "0px 6px 10px rgba(0,0,0,0.15), 0px 2px 4px rgba(0,0,0,0.1)",
-                },
-              }}
-            >
-              <CardMedia
-                component="img"
-                image={`${photo.urls.small}?w=200&fit=crop&auto=format`}
-                alt={photo.description || "No description"}
-                sx={{ height: 130, objectFit: "cover" }}
-              />
-              <CardContent>
-                <Typography variant="subtitle1" component="div">
-                  {photo.description || "No title"}
-                </Typography>
-              </CardContent>
-            </Card>
-          </ImageListItem>
-        ))}
-      </ImageList>
+                    "0px 4px 6px rgba(0,0,0,0.1), 0px 1px 3px rgba(0,0,0,0.08)",
+                  transition: "transform 0.2s ease-in-out",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow:
+                      "0px 6px 10px rgba(0,0,0,0.15), 0px 2px 4px rgba(0,0,0,0.1)",
+                  },
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  image={`${photo.urls.small}?w=200&fit=crop&auto=format`}
+                  alt={photo.description || "No description"}
+                  sx={{ height: 130, objectFit: "cover" }}
+                />
+                <CardContent>
+                  <Typography variant="subtitle1" component="div">
+                    {photo.description || "No title"}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      )}
     </Box>
   );
 };
